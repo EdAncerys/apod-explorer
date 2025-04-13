@@ -1,16 +1,19 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, lazy } from 'react';
+import { Suspense } from 'react';
 import { useGetAPOD } from './hooks/useGetAPOD';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { DatePicker } from './components/DatePicker';
-import { APOD } from './components/APOD';
 import { APODHeader } from './components/APODHeader';
+const LazyAPOD = lazy(() =>
+  import('./components/APOD').then((module) => ({ default: module.APOD }))
+);
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
   const [favorites, setFavorites] = useState([]);
-  const { apod, loading, error } = useGetAPOD(selectedDate);
+  const { apod, error } = useGetAPOD(selectedDate);
   const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
   function removeFavorite(dateToRemove) {
@@ -57,24 +60,22 @@ function App() {
       {/* Header Component */}
       <Header />
 
-      {/* Main Container */}
+      {/* Main Container &  Suspense for lazy loading */}
       <main className="root-container">
         {/* Sidebar Component */}
         <Sidebar favorites={favorites} removeFavorite={removeFavorite} />
 
         {/* Main Content */}
         <section className="content">
-          {/* Loading and error states */}
-          {loading && (
-            <p className="apod-loading">Loading data (1s delayed!)...</p>
-          )}
           {error && <p className="apod-error">Error: {error}</p>}
 
-          {!loading && !error && <APODHeader />}
+          {!error && <APODHeader />}
           {/* APOD Component */}
-          {apod && !loading && !error && (
-            <APOD apod={apod} addToFavorites={addToFavorites} />
-          )}
+          <Suspense
+            fallback={<div className="apod-loading">🌀 Loading...</div>}
+          >
+            <LazyAPOD apod={apod} addToFavorites={addToFavorites} />
+          </Suspense>
 
           {/* Date Picker Component */}
           <DatePicker
@@ -91,7 +92,7 @@ function App() {
             <h2>All Your Favorites</h2>
             {favorites.length > 0 ? (
               favorites.map((favorite, index) => (
-                <APOD
+                <LazyAPOD
                   key={index}
                   apod={favorite}
                   removeFavorite={removeFavorite}

@@ -2,11 +2,15 @@
 @import './css/favorite.css';
 @import './css/navigations.css';
 
+#root {
+  display: flex;
+}
 body {
   display: flex;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
   background-color: #282c34;
   color: white;
 }

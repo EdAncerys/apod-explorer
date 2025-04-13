@@ -29,18 +29,6 @@ export const useGetAPOD = (selectedDate) => {
     async function fetchAPOD() {
       setLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay for loading state
-        // if (Math.random() < 0.5) {
-        //   /*
-        //    * Randomly throw an error for testing purposes
-        //    * This simulates a development error
-        //    * Remove this block in production
-        //    */
-        //   throw new Error(
-        //     `🤖 Development error: ${Math.random()}. This is randomly thrown error!`
-        //   );
-        // }
-
         // Check the API key existence and warn if missing
         const API_KEY = process.env.REACT_APP_APOD_API_KEY;
         if (!API_KEY) {

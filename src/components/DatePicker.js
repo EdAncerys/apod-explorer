@@ -19,6 +19,8 @@ export function DatePicker({ selectedDate, today, handleChange }) {
       <input
         type="date"
         id="apod-date"
+        name="apod-date"
+        data-testid="date-input"
         // If the default flag 'today' is used, show today's date in the picker
         value={selectedDate === 'today' ? today : selectedDate}
         min="1995-06-16" // Minimum date per API documentation
