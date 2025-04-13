@@ -17,7 +17,7 @@
     "dev": "react-scripts start",
     "commit": "./commit.sh",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,5 +40,12 @@
   },
   "devDependencies": {
     "prettier": "3.5.3"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/reportWebVitals.js",
+      "<rootDir>/src/App.js",
+      "<rootDir>/src/index.js"
+    ]
   }
 }

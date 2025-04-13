@@ -5,7 +5,7 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { DatePicker } from './components/DatePicker';
 import { APOD } from './components/APOD';
-import { APODHader } from './components/APODHeader';
+import { APODHeader } from './components/APODHeader';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
@@ -76,7 +76,7 @@ function App() {
           )}
           {error && <p className="apod-error">Error: {error}</p>}
 
-          {!loading && !error && <APODHader />}
+          {!loading && !error && <APODHeader />}
           {/* APOD Component */}
           {apod && !loading && !error && (
             <APOD apod={apod} addToFavorites={addToFavorites} />

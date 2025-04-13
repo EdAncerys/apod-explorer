@@ -3,7 +3,7 @@
  * @returns {JSX.Element} APOD component
  */
 
-export function APODHader() {
+export function APODHeader() {
   return (
     <>
       <h1>NASA APOD</h1>

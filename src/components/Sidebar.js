@@ -12,8 +12,8 @@ export function Sidebar({ favorites, removeFavorite }) {
       <h2>Favorites</h2>
       {/* Favorites list will go here */}
       <ul>
-        {favorites.length > 0 ? (
-          favorites.map((favorite, index) => (
+        {favorites?.length > 0 ? (
+          favorites?.map((favorite, index) => (
             <li key={index}>
               <h3>{favorite.title}</h3>
               <p>{favorite.date}</p>
