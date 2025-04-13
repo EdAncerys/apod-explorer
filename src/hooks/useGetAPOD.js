@@ -85,7 +85,16 @@ export const useGetAPOD = (selectedDate) => {
         setApod(data); // Set the fetched APOD data to state
         setError(null); // Reset error state
       } catch (err) {
-        setError(err.message);
+        /*
+         * Handle errors
+         * If the error is not an AbortError, set the error state
+         * This will trigger the error message to be displayed
+         */
+        if (err.name !== 'AbortError') {
+          setError(err.message);
+        } else {
+          console.error('Fetch aborted');
+        }
       } finally {
         setLoading(false);
       }
