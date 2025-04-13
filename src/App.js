@@ -1,13 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useGetAPOD } from './hooks/useGetAPOD';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
-  const [apod, setApod] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const { apod, loading, error } = useGetAPOD(selectedDate);
   const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
   console.log('apodData', apod);
@@ -15,95 +14,6 @@ function App() {
   console.log('error', error);
   console.log('favorites', favorites);
   console.log('selectedDate', selectedDate);
-
-  useEffect(() => {
-    /*
-     * Effect hook to fetch APOD
-     * Fetch APOD data from NASA API
-     * Handle loading and error states
-     * Validate date input
-     * Handle random error for testing
-     * User abort controller to cancel fetch request if needed
-     * Cleanup function to abort fetch request
-     */
-    const controller = new AbortController(); // Create an AbortController to cancel the fetch request if needed
-    async function fetchAPOD() {
-      setLoading(true);
-      setError(null); // Reset error state before fetching
-      try {
-        if (Math.random() < 0.5) {
-          /*
-           * Randomly throw an error for testing purposes
-           * This simulates a development error
-           * Remove this block in production
-           */
-          throw new Error(
-            `🤖 Development error: ${Math.random()}. This is randomly thrown error!`
-          );
-        }
-
-        // Check the API key existence and warn if missing
-        const API_KEY = process.env.REACT_APP_APOD_API_KEY;
-        if (!API_KEY) {
-          throw new Error(
-            'API key is missing. Please provide a valid NASA API key.'
-          );
-        }
-
-        // Use NASAs APOD API with DEMO_KEY. If a specific date is selected, pass it as a query parameter.
-        let url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
-        if (selectedDate !== 'today') {
-          url += `&date=${selectedDate}`;
-        }
-
-        const date = new Date(selectedDate);
-        const minDate = new Date('1995-06-16');
-        if (date < minDate) {
-          /*
-           * Validate date input
-           * Check if the selected date is before June 16, 1995
-           * If so, throw an error
-           * This is to ensure the date is within the valid range
-           * of the NASA APOD API
-           */
-          throw new Error('Date must be after June 16, 1995');
-        }
-        const response = await fetch(url, {
-          signal: controller.signal, // Pass the abort signal to the fetch request
-        });
-
-        if (!response.ok) {
-          /*
-           * Handle HTTP errors
-           * If the response is not OK, throw an error
-           * This will be caught in the catch block
-           */
-          const status = response.status; // HTTP status code
-          const errorMsg = await response.json(); // Parse the error message
-          throw new Error(
-            `Error ${status}: ${errorMsg?.error?.message}` ||
-              'Failed to fetch data'
-          );
-        }
-
-        const data = await response.json();
-        setApod(data); // Set the fetched APOD data to state
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchAPOD();
-
-    return () => {
-      /*
-       * Cleanup function to abort fetch request if the component unmounts
-       * This prevents memory leaks and ensures the fetch request is cancelled
-       */
-      controller.abort();
-    };
-  }, [selectedDate]);
 
   function removeFavorite(dateToRemove) {
     /*
@@ -174,20 +84,24 @@ function App() {
           </ul>
         </aside>
 
-        {/* Loading and error states */}
-        {loading && <p className="apod-loading">Loading data...</p>}
-        {error && <p className="apod-error">Error: {error}</p>}
-
         {/* Main Content */}
-        {apod && !loading && !error && (
-          <section className="content">
-            <h1>NASA APOD</h1>
-            <p>
-              Discover the wonders of the universe with NASA's Astronomy Picture
-              of the Day.
-            </p>
-            <h2>Today's Astronomy Picture</h2>
-            {/* APOD Component */}
+        <section className="content">
+          {/* Loading and error states */}
+          {loading && <p className="apod-loading">Loading data...</p>}
+          {error && <p className="apod-error">Error: {error}</p>}
+
+          {!loading && !error && (
+            <>
+              <h1>NASA APOD</h1>
+              <p>
+                Discover the wonders of the universe with NASA's Astronomy
+                Picture of the Day.
+              </p>
+              <h2>Today's Astronomy Picture</h2>
+            </>
+          )}
+          {/* APOD Component */}
+          {apod && !loading && !error && (
             <div className="apod-wrapper">
               <div className="apod-content">
                 {/* Render image or video based on API response */}
@@ -212,27 +126,27 @@ function App() {
 
               <p>{apod?.explanation}</p>
             </div>
+          )}
 
-            {/* Date Picker Component */}
-            <div className="date-picker">
-              <h2>Explore APOD by Date</h2>
-              <p>
-                Select a date to view the Astronomy Picture of the Day for that
-                day. You can explore APODs from June 16, 1995, to today.
-              </p>
-              <label htmlFor="apod-date">Select Date: </label>
-              <input
-                type="date"
-                id="apod-date"
-                // If the default flag 'today' is used, show today's date in the picker
-                value={selectedDate === 'today' ? today : selectedDate}
-                min="1995-06-16" // Minimum date per API documentation
-                max={today} // Maximum date is today
-                onChange={handleChange}
-              />
-            </div>
-          </section>
-        )}
+          {/* Date Picker Component */}
+          <div className="date-picker">
+            <h2>Explore APOD by Date</h2>
+            <p>
+              Select a date to view the Astronomy Picture of the Day for that
+              day. You can explore APODs from June 16, 1995, to today.
+            </p>
+            <label htmlFor="apod-date">Select Date: </label>
+            <input
+              type="date"
+              id="apod-date"
+              // If the default flag 'today' is used, show today's date in the picker
+              value={selectedDate === 'today' ? today : selectedDate}
+              min="1995-06-16" // Minimum date per API documentation
+              max={today} // Maximum date is today
+              onChange={handleChange}
+            />
+          </div>
+        </section>
       </main>
 
       {/* Optional Footer */}
