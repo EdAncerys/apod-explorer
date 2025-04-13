@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import { useGetAPOD } from './hooks/useGetAPOD';
+import { Header } from './components/Header';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
@@ -56,10 +56,7 @@ function App() {
   return (
     <div className="main">
       {/* Header Component */}
-      <header className="header">
-        <img src={logo} alt="logo" />
-        <p>Explore the universe with NASA's Astronomy Picture of the Day!</p>
-      </header>
+      <Header />
 
       {/* Main Container */}
       <main className="root-container">
