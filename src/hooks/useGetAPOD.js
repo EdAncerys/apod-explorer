@@ -25,7 +25,7 @@ export const useGetAPOD = (selectedDate) => {
     async function fetchAPOD() {
       setLoading(true);
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a delay for loading state
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate a delay for loading state
         // if (Math.random() < 0.5) {
         //   /*
         //    * Randomly throw an error for testing purposes

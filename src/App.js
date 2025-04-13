@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useGetAPOD } from './hooks/useGetAPOD';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
+import { DatePicker } from './components/DatePicker';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
@@ -110,23 +111,11 @@ function App() {
           )}
 
           {/* Date Picker Component */}
-          <div className="date-picker">
-            <h2>Explore APOD by Date</h2>
-            <p>
-              Select a date to view the Astronomy Picture of the Day for that
-              day. You can explore APODs from June 16, 1995, to today.
-            </p>
-            <label htmlFor="apod-date">Select Date: </label>
-            <input
-              type="date"
-              id="apod-date"
-              // If the default flag 'today' is used, show today's date in the picker
-              value={selectedDate === 'today' ? today : selectedDate}
-              min="1995-06-16" // Minimum date per API documentation
-              max={today} // Maximum date is today
-              onChange={handleChange}
-            />
-          </div>
+          <DatePicker
+            selectedDate={selectedDate}
+            today={today}
+            handleChange={handleChange}
+          />
         </section>
       </main>
 
