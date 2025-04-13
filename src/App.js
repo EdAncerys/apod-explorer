@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
@@ -15,6 +15,74 @@ function App() {
   console.log('error', error);
   console.log('favorites', favorites);
   console.log('selectedDate', selectedDate);
+
+  useEffect(() => {
+    /*
+     * Effect hook to fetch APOD
+     * Fetch APOD data from NASA API
+     * Handle loading and error states
+     * Validate date input
+     * Handle random error for testing
+     */
+    async function fetchAPOD() {
+      setLoading(true);
+      setError(null); // Reset error state before fetching
+      try {
+        if (Math.random() < 0.5) {
+          /*
+           * Randomly throw an error for testing purposes
+           * This simulates a development error
+           * Remove this block in production
+           */
+          throw new Error(
+            `🤖 Development error: ${Math.random()}. This is randomly thrown error!`
+          );
+        }
+
+        // Use NASAs APOD API with DEMO_KEY. If a specific date is selected, pass it as a query parameter.
+        let url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_APOD_API_KEY}`;
+        if (selectedDate !== 'today') {
+          url += `&date=${selectedDate}`;
+        }
+
+        const date = new Date(selectedDate);
+        const minDate = new Date('1995-06-16');
+        if (date < minDate) {
+          /*
+           * Validate date input
+           * Check if the selected date is before June 16, 1995
+           * If so, throw an error
+           * This is to ensure the date is within the valid range
+           * of the NASA APOD API
+           */
+          throw new Error('Date must be after June 16, 1995');
+        }
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          /*
+           * Handle HTTP errors
+           * If the response is not OK, throw an error
+           * This will be caught in the catch block
+           */
+          const status = response.status; // HTTP status code
+          const errorMsg = await response.json(); // Parse the error message
+          throw new Error(
+            `Error ${status}: ${errorMsg?.error?.message}` ||
+              'Failed to fetch data'
+          );
+        }
+
+        const data = await response.json();
+        setApod(data); // Set the fetched APOD data to state
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAPOD();
+  }, [selectedDate]);
 
   function removeFavorite(dateToRemove) {
     /*
