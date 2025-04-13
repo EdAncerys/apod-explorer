@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import { useGetAPOD } from './hooks/useGetAPOD';
 import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
@@ -26,6 +27,7 @@ function App() {
       return;
     }
     setFavorites(favorites.filter((item) => item.date !== dateToRemove));
+    alert('Removed from favorites!');
   }
 
   function handleChange(e) {
@@ -61,25 +63,7 @@ function App() {
       {/* Main Container */}
       <main className="root-container">
         {/* Sidebar Component */}
-        <aside className="sidebar">
-          <h2>Favourites</h2>
-          {/* Favourites list will go here */}
-          <ul>
-            {favorites.length > 0 ? (
-              favorites.map((favorite, index) => (
-                <li key={index}>
-                  <h3>{favorite.title}</h3>
-                  <p>{favorite.date}</p>
-                  <button onClick={() => removeFavorite(favorite.date)}>
-                    Remove
-                  </button>
-                </li>
-              ))
-            ) : (
-              <li>No favorites yet</li>
-            )}
-          </ul>
-        </aside>
+        <Sidebar favorites={favorites} removeFavorite={removeFavorite} />
 
         {/* Main Content */}
         <section className="content">
