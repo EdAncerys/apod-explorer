@@ -17,6 +17,11 @@
   height: auto;
   border-radius: 10px;
 }
+.apod-content iframe {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
 .apod-content h2 {
   font-size: 20px;
   color: white;
@@ -37,10 +42,16 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  .apod-image {
-    width: 100%;
-  }
   .apod-content button {
     width: 100%;
+  }
+  .apod-content img {
+    width: 100%;
+  }
+  .apod-content iframe {
+    width: 100%;
+  }
+  .apod-content p {
+    text-align: justify;
   }
 }

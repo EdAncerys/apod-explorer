@@ -3,6 +3,7 @@
  * @param {Object} props - Component properties
  * @param {Object} props.apod - The Astronomy Picture of the Day data
  * @param {Function} props.addToFavorites - Function to add APOD to favorites
+ * 🚧 Implement image placeholders
  * @returns {JSX.Element} APOD component
  */
 
@@ -19,6 +20,15 @@ export function APOD({ apod, addToFavorites, removeFavorite }) {
             loading="lazy"
           />
         )}
+        {apod?.media_type === 'video' && (
+          <iframe
+            src={apod?.url}
+            title={apod?.title}
+            className="apod-video"
+            loading="lazy"
+          ></iframe>
+        )}
+        {/* Render title and date */}
         {apod?.title && (
           <h2>
             {apod?.title} ({apod?.date || 'No date available'})
