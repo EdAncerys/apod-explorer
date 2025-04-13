@@ -4,6 +4,7 @@ import { useGetAPOD } from './hooks/useGetAPOD';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { DatePicker } from './components/DatePicker';
+import { APOD } from './components/APOD';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState('today');
@@ -84,30 +85,7 @@ function App() {
           )}
           {/* APOD Component */}
           {apod && !loading && !error && (
-            <div className="apod-wrapper">
-              <div className="apod-content">
-                {/* Render image or video based on API response */}
-                {apod?.media_type === 'image' && (
-                  <img
-                    src={apod?.url}
-                    alt={apod?.title}
-                    className="apod-image"
-                    loading="lazy"
-                  />
-                )}
-                {apod?.title && (
-                  <h2>
-                    {apod?.title} ({apod?.date || 'No date available'})
-                  </h2>
-                )}
-                {/* Button to add current APOD to favorites */}
-                <button onClick={() => addToFavorites(apod)}>
-                  Add to Favorites
-                </button>
-              </div>
-
-              <p>{apod?.explanation}</p>
-            </div>
+            <APOD apod={apod} addToFavorites={addToFavorites} />
           )}
 
           {/* Date Picker Component */}
