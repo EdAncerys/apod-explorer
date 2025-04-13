@@ -56,3 +56,5 @@ Use `DEMO_KEY` for testing purposes.
   - Include a **live demo** (if possible)
 
 ---
+
+<!-- add more to the docs -->
