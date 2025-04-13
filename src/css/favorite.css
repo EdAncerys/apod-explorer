@@ -31,25 +31,6 @@
   background-color: #3a3d40;
   color: white;
 }
-/* Date Picker */
-.date-picker {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-top: 1px solid #444;
-  padding: 20px;
-}
-.date-picker input {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #3a3d40;
-  color: white;
-  font-size: 16px;
-  width: fit-content;
-  min-width: 160px;
-  cursor: pointer;
-}
 /* media Q */
 @media screen and (max-width: 768px) {
   .apod-content {

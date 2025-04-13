@@ -2,6 +2,10 @@
  * Custom hook to fetch the Astronomy Picture of the Day (APOD) from NASA's API.
  * @param {string} date - The date for which to fetch the APOD.
  * @returns {Object} - An object containing the APOD data, loading state, and error state.
+ * TODO:
+ * 🚧 Implement axios for enhanced data fetching
+ * 🚧 Implement error handling with custom error messages
+ * 🚧 Implement SWR, React Query for data fetching
  */
 
 import { useState, useEffect } from 'react';

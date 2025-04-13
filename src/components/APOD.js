@@ -6,7 +6,7 @@
  * @returns {JSX.Element} APOD component
  */
 
-export function APOD({ apod, addToFavorites }) {
+export function APOD({ apod, addToFavorites, removeFavorite }) {
   return (
     <div className="apod-wrapper">
       <div className="apod-content">
@@ -24,8 +24,18 @@ export function APOD({ apod, addToFavorites }) {
             {apod?.title} ({apod?.date || 'No date available'})
           </h2>
         )}
-        {/* Button to add current APOD to favorites */}
-        <button onClick={() => addToFavorites(apod)}>Add to Favorites</button>
+        {/* Button to add | remove current APOD to favorites */}
+        <button
+          onClick={() => {
+            if (removeFavorite) {
+              removeFavorite(apod?.date);
+            } else {
+              addToFavorites(apod);
+            }
+          }}
+        >
+          {removeFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+        </button>
       </div>
 
       <p>{apod?.explanation}</p>

@@ -5,7 +5,6 @@
   font-family: Arial, sans-serif;
   background-color: #282c34;
 }
-
 .root-container {
   display: flex;
   flex: 1;
@@ -15,4 +14,24 @@
   background-color: #282c34;
   color: white;
   width: 100%;
+}
+/* Date Picker */
+.date-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #444;
+  padding: 20px;
+  margin: 20px 0;
+}
+.date-picker input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #3a3d40;
+  color: white;
+  font-size: 16px;
+  width: fit-content;
+  min-width: 160px;
+  cursor: pointer;
 }

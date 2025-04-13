@@ -86,6 +86,25 @@ function App() {
             today={today}
             handleChange={handleChange}
           />
+
+          {/*
+           * Display favorites in separate UI component/or page
+           * 🚧 Implement show fav on separate route
+           */}
+          <div className="content favorites-container">
+            <h2>All Your Favorites</h2>
+            {favorites.length > 0 ? (
+              favorites.map((favorite, index) => (
+                <APOD
+                  key={index}
+                  apod={favorite}
+                  removeFavorite={removeFavorite}
+                />
+              ))
+            ) : (
+              <p>No favorites yet</p>
+            )}
+          </div>
         </section>
       </main>
 
