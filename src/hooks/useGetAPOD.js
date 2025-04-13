@@ -85,7 +85,10 @@ export const useGetAPOD = (selectedDate) => {
         if (err.name !== 'AbortError') {
           setError(err.message);
         } else {
-          console.error('Fetch aborted');
+          // Only log if not in test environment
+          if (process.env.NODE_ENV !== 'test') {
+            console.error('Fetch aborted');
+          }
         }
       } finally {
         setLoading(false);
