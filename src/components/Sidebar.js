@@ -1,3 +1,11 @@
+/*
+ * Sidebar component to display favorite articles
+ * @param {Object} props - Component properties
+ * @param {Array} props.favorites - List of favorite articles
+ * @param {Function} props.removeFavorite - Function to remove an article from favorites
+ * @returns {JSX.Element} Sidebar component
+ */
+
 export function Sidebar({ favorites, removeFavorite }) {
   return (
     <aside className="sidebar">
