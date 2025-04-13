@@ -71,7 +71,9 @@ function App() {
         {/* Main Content */}
         <section className="content">
           {/* Loading and error states */}
-          {loading && <p className="apod-loading">Loading data...</p>}
+          {loading && (
+            <p className="apod-loading">Loading data (1s delayed!)...</p>
+          )}
           {error && <p className="apod-error">Error: {error}</p>}
 
           {!loading && !error && <APODHader />}

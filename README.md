@@ -76,6 +76,10 @@ End-to-end tests can be implemented using tools like Cypress or Playwright. See 
 **DO NOT USE IN PRODUCTION**  
 This application is intended as a demo. **IMPORTANT:** For production deployments, secure your API keys and secrets by using a server-side APIs or a secure full stack framework to handle secrets. Client-side API keys can expose sensitive information and lead to security vulnerabilities.
 
+### Prettier configuration
+
+Extend your Prettier configuration to enforce consistent, team-specific formatting by customizing your `.prettierrc` settings. Tailor options such as semicolon usage, single versus double quotes, trailing commas, and print width to reflect your team's coding standards. This extended configuration ensures that every commit adheres to shared styling guidelines, minimizes formatting debates during code reviews, and integrates smoothly with tools like ESLint and pre-commit hooks. Regularly update and document these settings in your project repository to maintain alignment with evolving team practices.
+
 ## License
 
 This project is licensed under the MIT License.
