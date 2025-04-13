@@ -23,7 +23,10 @@ function App() {
      * Handle loading and error states
      * Validate date input
      * Handle random error for testing
+     * User abort controller to cancel fetch request if needed
+     * Cleanup function to abort fetch request
      */
+    const controller = new AbortController(); // Create an AbortController to cancel the fetch request if needed
     async function fetchAPOD() {
       setLoading(true);
       setError(null); // Reset error state before fetching
@@ -39,8 +42,16 @@ function App() {
           );
         }
 
+        // Check the API key existence and warn if missing
+        const API_KEY = process.env.REACT_APP_APOD_API_KEY;
+        if (!API_KEY) {
+          throw new Error(
+            'API key is missing. Please provide a valid NASA API key.'
+          );
+        }
+
         // Use NASAs APOD API with DEMO_KEY. If a specific date is selected, pass it as a query parameter.
-        let url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_APOD_API_KEY}`;
+        let url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
         if (selectedDate !== 'today') {
           url += `&date=${selectedDate}`;
         }
@@ -57,7 +68,9 @@ function App() {
            */
           throw new Error('Date must be after June 16, 1995');
         }
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          signal: controller.signal, // Pass the abort signal to the fetch request
+        });
 
         if (!response.ok) {
           /*
@@ -82,6 +95,14 @@ function App() {
       }
     }
     fetchAPOD();
+
+    return () => {
+      /*
+       * Cleanup function to abort fetch request if the component unmounts
+       * This prevents memory leaks and ensures the fetch request is cancelled
+       */
+      controller.abort();
+    };
   }, [selectedDate]);
 
   function removeFavorite(dateToRemove) {
