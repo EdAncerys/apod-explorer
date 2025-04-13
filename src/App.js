@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { DatePicker } from './components/DatePicker';
 import { APODHeader } from './components/APODHeader';
+import { ErrorBoundary } from 'react-error-boundary';
 const LazyAPOD = lazy(() =>
   import('./components/APOD').then((module) => ({ default: module.APOD }))
 );
@@ -63,7 +64,14 @@ function App() {
       {/* Main Container &  Suspense for lazy loading */}
       <main className="root-container">
         {/* Sidebar Component */}
-        <Sidebar favorites={favorites} removeFavorite={removeFavorite} />
+        <ErrorBoundary
+          FallbackComponent={() => (
+            <div className="apod-error">Error loading favorites</div>
+          )}
+        >
+          {/* Sidebar component to show favorites */}
+          <Sidebar favorites={favorites} removeFavorite={removeFavorite} />
+        </ErrorBoundary>
 
         {/* Main Content */}
         <section className="content">
@@ -74,7 +82,14 @@ function App() {
           <Suspense
             fallback={<div className="apod-loading">🌀 Loading...</div>}
           >
-            <LazyAPOD apod={apod} addToFavorites={addToFavorites} />
+            {/* Error Boundary to catch errors in APOD component */}
+            <ErrorBoundary
+              FallbackComponent={() => (
+                <div className="apod-error">Error loading APOD</div>
+              )}
+            >
+              <LazyAPOD apod={apod} addToFavorites={addToFavorites} />
+            </ErrorBoundary>
           </Suspense>
 
           {/* Date Picker Component */}
