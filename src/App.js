@@ -13,12 +13,6 @@ function App() {
   const { apod, loading, error } = useGetAPOD(selectedDate);
   const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
-  console.log('apodData', apod);
-  console.log('loading', loading);
-  console.log('error', error);
-  console.log('favorites', favorites);
-  console.log('selectedDate', selectedDate);
-
   function removeFavorite(dateToRemove) {
     /*
      * Remove a favorite from the favorites list based on its date
