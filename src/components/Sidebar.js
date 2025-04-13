@@ -8,7 +8,7 @@
 
 export function Sidebar({ favorites, removeFavorite }) {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" data-testid="sidebar">
       <h2>Favorites</h2>
       {/* Favorites list will go here */}
       <ul>

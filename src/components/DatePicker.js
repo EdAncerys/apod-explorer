@@ -9,7 +9,7 @@
 
 export function DatePicker({ selectedDate, today, handleChange }) {
   return (
-    <div className="date-picker">
+    <div className="date-picker" data-testid="datepicker">
       <h2>Explore APOD by Date</h2>
       <p>
         Select a date to view the Astronomy Picture of the Day for that day. You
