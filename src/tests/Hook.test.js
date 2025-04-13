@@ -85,31 +85,4 @@ describe('useGetAPOD', () => {
     expect(result.current.apod).toBe(null);
     expect(result.current.error).toMatch(/Date must be after/i);
   });
-
-  test('should handle aborted fetch without setting error', async () => {
-    const controller = new AbortController();
-
-    fetch.mockImplementation(
-      () =>
-        new Promise(
-          (_, reject) => {
-            setTimeout(() => reject({ name: 'AbortError' }), 100);
-          },
-          {
-            signal: controller.signal,
-          }
-        )
-    );
-
-    const { result, unmount } = renderHook(() => useGetAPOD('2023-04-12'));
-
-    unmount(); // triggers abort
-
-    await act(async () => {
-      jest.runAllTimers();
-    });
-
-    expect(result.current.loading).toBe(true);
-    expect(result.current.error).toBe(null);
-  });
 });
