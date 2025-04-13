@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+APOD Explorer is a React-based application that displays NASA's Astronomy Picture of the Day (APOD). Users can view the daily APOD, add images to their favorites, and explore detailed explanations.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚨🚨🚨 **Warning:** DO NOT USE IN PRODUCTION 🚨🚨🚨
 
-## Available Scripts
+> This application is for demonstration purposes only. For production use, implement a server-side APIs or use a full stack framework to handle application secrets.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Display APOD:** Automatically fetches and displays the Astronomy Picture of the Day.
+- **Favorites:** Add or remove APOD items to/from your favorites list.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Requirements
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js (>= 14)
+- Package managers `npm | yarn | bun`
 
-### `npm test`
+## Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the Repository:**
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/EdAncerys/apod-explorer.git
+   cd apod-explorer
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Create a `.env` File:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   In the root directory, create a file named `.env` and add the following line. Replace `YOUR_API_KEY` with your actual NASA APOD API key.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```env
+   REACT_APP_APOD_API_KEY=YOUR_API_KEY
+   ```
 
-### `npm run eject`
+   > **Important:** This key is required to run the application. Do not commit your `.env` file to version control.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   > Instructions on how to obtain `YOUR_API_KEY` will be sent via email
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Install Dependencies:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   npm install
+   # or
+   ...
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Running the Application
 
-## Learn More
+Start the development server with:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm dev
+# or
+...
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-### Code Splitting
+## Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Unit & Integration Tests
 
-### Analyzing the Bundle Size
+The project uses React Testing Library for component testing. To run the tests:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm test
+# or
+...
+```
 
-### Making a Progressive Web App
+### End-to-End Tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+End-to-end tests can be implemented using tools like Cypress or Playwright. See the `docs` for setup instructions.
 
-### Advanced Configuration
+## Production Warning
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**DO NOT USE IN PRODUCTION**  
+This application is intended as a demo. **IMPORTANT:** For production deployments, secure your API keys and secrets by using a server-side APIs or a secure full stack framework to handle secrets. Client-side API keys can expose sensitive information and lead to security vulnerabilities.
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
