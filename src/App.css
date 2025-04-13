@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
-}
+@import './css/root-page.css';
+@import './css/favorite.css';
+@import './css/navigations.css';
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+h1,
+h2,
+h3,
+p {
+  margin: 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  flex-grow: 1;
+}
+.apod-error {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 20px;
+  color: tomato;
+  background-color: #474a4f;
+  border: 1px solid tomato;
+  height: fit-content;
+}
+.apod-loading {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+/* app transitions */
+* {
+  transition: all 0.3s ease;
+}
+/* media Q */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  to {
-    transform: rotate(360deg);
+  .sidebar {
+    display: none;
   }
 }
